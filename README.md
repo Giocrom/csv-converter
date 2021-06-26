@@ -2,7 +2,7 @@
 
 The other day I needed to open a csv with Microsoft Excel and to my surprise, I found out that Excel's csv file work by separating each value with a ';' instead of a ','
 
-Instead of manually change the original file, ore tinkering with Excel's options, I decided to program a converter that substitutes every ',' in a file with a ';' and saves the modified file as "converted.csv"
+Instead of manually change the original file, or tinkering with Excel's options, I decided to program a converter that substitutes every ',' in a file with a ';' and saves the modified file as "converted.csv"
 
 
 
