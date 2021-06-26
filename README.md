@@ -13,7 +13,7 @@ When you launch the program from terminal you can specify **two** parameters:
   1. input file name - **obligatory**
   2. output file name - *optional*
 
-Example: `./converte my_file.csv my_output.cvs`
+Example: `./scsv my_file.csv my_output.cvs`
 
 Here's how the program handles the console parameters:
   1. **No parameters** : The "Unable to read input file" error will be displayed and the program will stop
