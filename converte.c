@@ -1,7 +1,7 @@
 /****************************************************************************************************************************************************************************
    I found myself in the situation to need a csv file to be modified as such every value was separated by a ';' instead of a ','
-   Being really lazy I decided to write a "converter" instead of doing in it by hand
-   It's a really simple program but I actually ahd a lot of fun creating it, so here it is.
+   Being lazy I decided to write a "converter" instead of doing it by hand
+   It's a simple program but I had a lot of fun creating it, so here it is.
 ****************************************************************************************************************************************************************************/
 
 #include <stdio.h>
@@ -20,10 +20,10 @@ int main(int argc, char *argv[]){
     return 1;
   }
   
-  // When you call the program you can specify the output file as the second parameter
-  // The prgram checks if you specofied an output file or not, if you don't it creates a "converted.csv"
+  // You can specify the output file as the second parameter
+  // The program checks if you specified an output file or not, if you didn't it creates a "converted.csv"
   if (argc > 2) {
-    if(strstr(argv[2], ext) != NULL){   // Check if the spefified output has the '.csv' extention
+    if(strstr(argv[2], ext) != NULL){   // Check if the specified output has the '.csv' extention
       fp_out = fopen(argv[2], "w");
     } else {
       printf("\nThe .csv  extention will be added to \"%s\"\n", argv[2]);
