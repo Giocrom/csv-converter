@@ -1,4 +1,4 @@
-# CSV TO "SCSV" CONVERTER
+# "," to ";" CONVERTER
 
 The other day I needed to open a csv with Microsoft Excel and to my surprise, I found out that Excel's csv file work by separating each value with a ';' instead of a ','
 
