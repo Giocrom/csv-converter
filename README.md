@@ -1,23 +1,59 @@
-# "," to ";" CONVERTER
-
-The other day I needed to open a csv with Microsoft Excel and to my surprise, I found out that Excel's csv file work by separating each value with a ';' instead of a ','
-
-Instead of manually change the original file, or tinkering with Excel's options, I decided to program a converter that substitutes every ',' in a file with a ';' and saves the modified file as "converted.csv"
+# CSV TO CSV CONVERTER - by Giocrom
+  version (alpha) 2.0
 
 
+## WHAT IT DOES
+The CSV TO CSV CONVERTER will change the current separator of your .csv files to
+any other character you desire, without corrupting data, and with only one
+simple terminal command!
 
 
-## How to use it
+## HOW TO USE IT
+Once installed, put the file you want to convert inside of the program folder
+and then start the conversion with your terminal like this:
+`./csvconverter input_file.csv output_file current_separator new_separator`
 
-When you launch the program from terminal you can specify **two** parameters:
-  1. input file name - **obligatory**
-  2. output file name - *optional*
 
-Example: `./scsv my_file.csv my_output.cvs`
+## PARAMETERS
+The Csv Converter takes a minimum of three and a maximum of 4 parameters
 
-Here's how the program handles the console parameters:
-  1. **No parameters** : The "Unable to read input file" error will be displayed and the program will stop
-  2. **Only the first parameter** : The input file is converted and saved ina new file called "converted.csv" that will be located in the program folder
-  3. **Both parameters**
-      1. If the output file is specified without the .csv extension the program will add it; that means that if you don't have a destination file you can just add the name you want for the output file and the program will create it for you
-      2. If the output file specified has the .csv extension the program will try to find it and use it as the destination file, if it doesn't exist it will create it.
+- The first one is the file you want to convert, complete of the .csv extension
+  `e.g. NameOfYourFile.csv`
+  It can't be omitted, obviously.
+
+- The second one is the name of the output file, which doesn't have to be
+  complete of the .csv extension
+  `e.g. NameOfYourOutput OR NameOfYourOutput.csv`
+  This parameter is optional, if you don't specify an output the program will
+  save the conversion in a file called "converted.csv"
+
+- The third one is the separator your .csv file is currently using
+
+- The forth one is the separator you'd like to convert to
+
+
+## SOURCES
+Csv Documentation - https://datatracker.ietf.org/doc/html/rfc4180#ref-2
+
+
+## THINGS TO CONSIDER
+- Spaces are considered part of a field
+
+- Fields containing line breaks (CRLF), double quotes, and commas
+  should be enclosed in double-quotes.
+
+- If fields are not enclosed with double quotes, then double quotes may not
+  appear inside the fields.
+
+- If double-quotes are used to enclose fields, then a double-quote
+  appearing inside a field must be escaped by preceding it with
+  another double quote.
+
+- The last field in the record must not be followed by a comma.
+
+
+## FORMAT EXAMPLE:
+    [field_name,field_name,field_name CRLF]
+    "a""aa","bb CRLF
+    b","ccc" CRLF
+    zzz,yyy,xxx [CRLF]
