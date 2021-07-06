@@ -1,5 +1,5 @@
 // CSV TO CSV CONVERTER - by Giocrom
-// version (alpha) 2.0
+// version (alpha) 2.1
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,7 +11,7 @@
 FILE * errorHandling(int arg_num, char * input);
 FILE * outputHandling(int arg_num, char * output);
 int checkOutputName(char *output);
-void fieldCheck(FILE *input, FILE *output, char current, char new);
+void fieldCheck(FILE *input, FILE *output, char current, char new, char c, int counter);
 
 int main(int argc, char *argv[]){
 
@@ -36,11 +36,11 @@ int main(int argc, char *argv[]){
 
   char c;   // Currently analyzed char
   while((fscanf(fp_in, "%c", &c)) != EOF){
-    if (c == '"') {
-      fprintf(fp_out, "\"");
-      fieldCheck(fp_in, fp_out, argv[argc - 2][0], argv[argc - 1][0]);
-    } else if (c == argv[argc - 2][0]) {
+    if (c == argv[argc - 2][0]) {
         fprintf(fp_out, "%c", argv[argc - 1][0]);
+    } else if (c == '"') {
+      fprintf(fp_out, "\"");
+      fieldCheck(fp_in, fp_out, argv[argc - 2][0], argv[argc - 1][0], c, 1);
     } else {
       fprintf(fp_out, "%c", c);
     }
@@ -74,6 +74,7 @@ FILE * errorHandling(int arg_num, char * input){
   return fopen(input, "r");
 }
 
+
 FILE * outputHandling(int arg_num, char * output){
   if (arg_num == 5) {   // if arg_num == 5 then an Output File was specified
 
@@ -84,7 +85,7 @@ FILE * outputHandling(int arg_num, char * output){
     }
 
     // Check if the file's name has the .csv extention
-    char extention[5] = ".csv";
+    char extention[5] = {'.','c','s','v','\0'};
     int flag = 1, j = 0, i = (strlen(output) - 4);
     while(i < strlen(output)){
       if(output[i] != extention[j]){ flag = 0; }
@@ -112,6 +113,7 @@ FILE * outputHandling(int arg_num, char * output){
   }
 }
 
+
 // The checkOutputName function checks if the output file's name is legal
 int checkOutputName(char *output){
 
@@ -137,12 +139,23 @@ int checkOutputName(char *output){
   return flag;
 }
 
+
 // The fieldCheck function skips the convertion of fields enclosed by ""
-void fieldCheck(FILE *input, FILE *output, char current, char new){
-  char c;
-  while ((fscanf(input, "%c", &c)) != EOF && c != current) {
+void fieldCheck(FILE *input, FILE *output, char current, char new, char c, int counter){
+  while ((fscanf(input, "%c", &c) != EOF) && c != current) {
+    if (c == '"'){ counter++; }
     fprintf(output, "%c", c);
   }
-  if (c == current){ fprintf(output, "%c", new); }
-  return;
+
+  if (c != current) {
+    return;
+  }
+
+  if ((counter % 2) == 1) {
+    fprintf(output, "%c", current);
+    fieldCheck(input, output, current, new, c, counter);
+  } else {
+    fprintf(output, "%c", new);
+    return;
+  }
 }
