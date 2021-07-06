@@ -1,5 +1,5 @@
 // CSV TO CSV CONVERTER - by Giocrom
-// version (alpha) 2.1
+// version (alpha) 2.2
 
 #include <stdio.h>
 #include <stdlib.h>
