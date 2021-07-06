@@ -85,7 +85,7 @@ FILE * outputHandling(int arg_num, char * output){
     }
 
     // Check if the file's name has the .csv extention
-    char extention[5] = {'.','c','s','v','\0'};
+    char extention[5] = ".csv";
     int flag = 1, j = 0, i = (strlen(output) - 4);
     while(i < strlen(output)){
       if(output[i] != extention[j]){ flag = 0; }
