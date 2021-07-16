@@ -1,5 +1,5 @@
 // CSV TO CSV CONVERTER - by Giocrom
-// version (alpha) 2.3
+// version (alpha) 2.1
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -56,10 +56,6 @@ int main(int argc, char *argv[]){
 
 
 FILE * errorHandling(int arg_num, char * input){
-  if ((fopen(input, "r")) == NULL) {
-    printf("ERROR: failed to open file\n");
-    return NULL;
-  }
 
   if (arg_num < 4) {
     printf("ERROR: too few parameters\n");
@@ -68,6 +64,11 @@ FILE * errorHandling(int arg_num, char * input){
 
   if (arg_num > 5) {
     printf("ERROR: too many parameters\n");
+    return NULL;
+  }
+
+  if ((fopen(input, "r")) == NULL) {
+    printf("ERROR: failed to open file\n");
     return NULL;
   }
 
@@ -122,21 +123,28 @@ int checkOutputName(char *output){
   if (strlen(output) > MAX_FILE_NAME_LEN) {return 1;}
 
   // Check if the file's name starts or ends with a blank space
-  if ((output[0] || output[strlen(output) - 1]) == ' ') {
+  if (output[0] == ' ' || output[strlen(output) - 1] == ' ') {
     return 1;
   }
 
   // Check if the file's name contains crl chars or punctuation chars
-  int flag = 0;
-  int i = 0;
+  int flag = 0, i = 0, numOfPoints = 0;
   while(i < strlen(output)) {
     if(ispunct((unsigned char)output[i])){flag = 1;}
     if(iscntrl((unsigned char)output[i])){flag = 1;}
-    if (output[i] == '_' || output[i] == '.') {
+    if (output[i] == '_') {
       flag = 0;
+    } else if (output[i] == '.') {
+      flag = 0;
+      numOfPoints++;
     }
     i++;
   }
+
+  if (numOfPoints == strlen(output)) {
+    flag = 1;
+  }
+
   return flag;
 }
 
