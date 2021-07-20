@@ -11,7 +11,8 @@
 FILE * errorHandling(int arg_num, char * input);
 FILE * outputHandling(int arg_num, char * output);
 int checkOutputName(char *output);
-void fieldCheck(FILE *input, FILE *output, char current, char new, char c, int counter);
+void fieldCheck(FILE *input, FILE *output,
+                char current, char new, char c, int counter);
 
 
 int main(int argc, char *argv[]){
@@ -22,7 +23,8 @@ int main(int argc, char *argv[]){
   //argv[4] = WantedEncoding (i.e. ";")
 
   if (argc == 1) {
-    printf("Usage: csvconverter input_file.csv output_file current_separator new_separator\n");
+    printf("Usage: csvconverter ");
+    printf("input_file.csv output_file current_separator new_separator\n");
     return 0;
   }
 
@@ -155,7 +157,8 @@ int checkOutputName(char *output){
 
 
 // The fieldCheck function skips the convertion of fields enclosed by ""
-void fieldCheck(FILE *input, FILE *output, char current, char new, char c, int counter){
+void fieldCheck(FILE *input, FILE *output,
+                char current, char new, char c, int counter){
   while ((c = fgetc(input)) != EOF && c != current) {
     if (c == '"'){counter++;}
     fprintf(output, "%c", c);
