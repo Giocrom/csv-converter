@@ -1,5 +1,5 @@
 // CSV TO CSV CONVERTER - by Giocrom
-// version (alpha) 2.4
+// version (alpha) 2.5
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,6 +13,7 @@ FILE * outputHandling(int arg_num, char * output);
 int checkOutputName(char *output);
 void fieldCheck(FILE *input, FILE *output, char current, char new, char c, int counter);
 
+
 int main(int argc, char *argv[]){
 
   //argv[1] = InputFileName (i.e. "times.csv")
@@ -20,10 +21,14 @@ int main(int argc, char *argv[]){
   //argv[3] = CurrentEncoding (i.e. ",")
   //argv[4] = WantedEncoding (i.e. ";")
 
+  if (argc == 1) {
+    printf("Usage: csvconverter input_file.csv output_file current_separator new_separator\n");
+    return 0;
+  }
+
   // ERROR handling
   FILE *fp_in = errorHandling(argc, argv[1]);
   if(fp_in == NULL){
-    fclose(fp_in);
     return -1;
   }
 
@@ -35,9 +40,9 @@ int main(int argc, char *argv[]){
   }
 
   char c;   // Currently analyzed char
-  while((fscanf(fp_in, "%c", &c)) != EOF){
+  while((c = fgetc(fp_in)) != EOF){
     if (c == argv[argc - 2][0]) {
-        fprintf(fp_out, "%c", argv[argc - 1][0]);
+      fprintf(fp_out, "%c", argv[argc - 1][0]);
     } else if (c == '"') {
       fprintf(fp_out, "\"");
       fieldCheck(fp_in, fp_out, argv[argc - 2][0], argv[argc - 1][0], c, 1);
@@ -88,9 +93,9 @@ FILE * outputHandling(int arg_num, char * output){
     // Check if the file's name has the .csv extention
     char extention[5] = ".csv";
     int flag = 1, j = 0, i = (strlen(output) - 4);
-    if (i < 0) { flag = 0; }
+    if (i < 0) {flag = 0;}
     while(i < strlen(output) && flag != 0){
-      if(output[i] != extention[j]){ flag = 0; }
+      if(output[i] != extention[j]){flag = 0;}
       i++; j++;
     }
 
@@ -151,12 +156,12 @@ int checkOutputName(char *output){
 
 // The fieldCheck function skips the convertion of fields enclosed by ""
 void fieldCheck(FILE *input, FILE *output, char current, char new, char c, int counter){
-  while ((fscanf(input, "%c", &c) != EOF) && c != current) {
-    if (c == '"'){ counter++; }
+  while ((c = fgetc(input)) != EOF && c != current) {
+    if (c == '"'){counter++;}
     fprintf(output, "%c", c);
   }
 
-  if (c != current) {
+  if (c == EOF) {
     return;
   }
 
