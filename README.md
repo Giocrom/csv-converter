@@ -1,5 +1,5 @@
 # CSV TO CSV CONVERTER - by Giocrom
-  version (alpha) 2.4
+  version (alpha) 2.5
 
 
 ## WHAT IT DOES
