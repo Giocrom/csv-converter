@@ -9,9 +9,10 @@ simple terminal command!
 
 
 ## HOW TO USE IT
-Once installed, put the file you want to convert inside of the "Inout" folder
+Once installed, put the file you want to convert inside of the "Input" folder
 and then start the conversion with your terminal like this:
 `./csvconverter input_file.csv output_file current_separator new_separator`
+
 You'll find the converted file in the "Output" folder!
 
 
