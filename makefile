@@ -1,8 +1,8 @@
-csvconverter: Docs/csvconverter.c Docs/Objs/errors.o Docs/Objs/output.o
-	gcc -o csvconverter Docs/csvconverter.c Docs/Objs/errors.o Docs/Objs/output.o
+csvconverter: src/csvconverter.c src/Objs/errors.o src/Objs/output.o
+	gcc -o csvconverter src/csvconverter.c src/Objs/errors.o src/Objs/output.o
 
-Docs/Objs/errors.o: Docs/Librares/errors.c Docs/Librares/errors.h
-	gcc -c Docs/Librares/errors.c -o Docs/Objs/errors.o
+src/Objs/errors.o: src/Librares/errors.c src/Librares/errors.h
+	gcc -c src/Librares/errors.c -o src/Objs/errors.o
 
-Docs/Objs/output.o: Docs/Librares/output.c Docs/Librares/output.h
-	gcc -c Docs/Librares/output.c -o Docs/Objs/output.o
+src/Objs/output.o: src/Librares/output.c src/Librares/output.h
+	gcc -c src/Librares/output.c -o src/Objs/output.o
